@@ -34,6 +34,15 @@ Genes used:
 - Stratified cross-validation
 - Class balancing applied
 
+## 📊 Model Performance
+
+Accuracy: 0.86
+ROC-AUC: 0.96
+
+Confusion Matrix:
+[[21, 1],
+ [5, 17]]
+
 ## 📊 Results
 
 - Accuracy: ~0.86
@@ -41,6 +50,13 @@ Genes used:
 - Balanced performance across classes
  ![Top k-mers](results/kmer_plot.png)
 The model successfully avoided bias caused by class imbalance and demonstrated meaningful predictive capability.
+
+## ▶️ How to Run
+
+git clone https://github.com/FSevalnev/bio-dna-ml
+cd bio-dna-ml
+pip install -r requirements.txt
+python src/model.py
 
 ### 📈 Results Interpretation
 
@@ -56,6 +72,14 @@ This highlights the importance of proper dataset handling in biomedical machine 
 - This suggests biologically relevant sequence structures
 - Feature importance analysis enables interpretability
 
+## 📂 Dataset
+
+The dataset consists of ~3600 DNA fragments (200 bp each), generated from real human genes.
+
+Class distribution before balancing:
+- Disease-related: 3577
+- Normal: 72
+
 ### 🧬 Biological Insights
 
 The model identified several AT-rich k-mers (e.g., TTA, TAA, AAA) as highly influential features.
@@ -64,11 +88,18 @@ This may indicate that certain nucleotide compositions play a role in distinguis
 
 Further research is required to validate these findings biologically.
 
-## ⚠️ Challenges
+## ⚠️ Challenges and limitations
 
 - Severe class imbalance in real genomic data
 - Need for careful preprocessing and validation
 - Avoiding overfitting
+
+- The dataset is limited to a small number of genes  
+- Labels are gene-level, not mutation-level  
+- No experimental biological validation  
+
+Future work will address these limitations with larger datasets and more precise annotations.
+
 
 ## 📊 Model Evaluation
 
@@ -77,14 +108,6 @@ Confusion Matrix:
  [5, 17]]
 
 This shows strong performance on both classes, with slightly lower recall for disease-related genes.
-
-### ⚠️ Limitations
-
-- The dataset is limited to a small number of genes  
-- Labels are gene-level, not mutation-level  
-- No experimental biological validation  
-
-Future work will address these limitations with larger datasets and more precise annotations.
 
 ## 🔬 Experimental Design
 
@@ -118,3 +141,4 @@ This project demonstrates how machine learning can be applied to real biological
 # 👤 Author
 
 Aspiring Biomedical Engineer focused on applying AI to genetics and human health.
+I hope this project reflects an early attempt to bridge machine learning with genomics, with the goal of contributing to future biomedical innovations.
