@@ -39,7 +39,7 @@ Genes used:
 - Accuracy: ~0.86
 - ROC-AUC: ~0.96
 - Balanced performance across classes
-- ![Top k-mers](results/kmer_plot.png)
+ ![Top k-mers](results/kmer_plot.png)
 The model successfully avoided bias caused by class imbalance and demonstrated meaningful predictive capability.
 
 ### 📈 Results Interpretation
