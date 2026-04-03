@@ -51,7 +51,7 @@ def all_kmers(k=3):
 
 def kmer_features(seq, k=3):
     kmers = kmer_count(seq, k)
-    all_possible = all_kmers(4)
+    all_possible = all_kmers(k)
 
     features = []
     for kmer in all_possible:
@@ -59,12 +59,16 @@ def kmer_features(seq, k=3):
     
     return features
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+
 files = {
-    "bio-dna-ml/data/BRCA1.txt": 1,
-    "bio-dna-ml/data/TP53.txt": 1,
-    "bio-dna-ml/data/EGFR.txt": 1,
-    "bio-dna-ml/data/GAPDH.txt": 0,
-    "bio-dna-ml/data/ACTB.txt": 0}
+    os.path.join(DATA_DIR, "BRCA1.txt"): 1,
+    os.path.join(DATA_DIR, "TP53.txt"): 1,
+    os.path.join(DATA_DIR, "EGFR.txt"): 1,
+    os.path.join(DATA_DIR, "GAPDH.txt"): 0,
+    os.path.join(DATA_DIR, "ACTB.txt"): 0,
+}
 
 x = []
 y = []
@@ -84,11 +88,11 @@ for file, label in files.items():
             x.append(features)
             y.append(label)
 
-    if len(x) == 0:
-        print("ERROR: No data generated")
+if len(x) == 0:
+    print("ERROR: No data generated")
 
-print(len(x), len(y))
-print(len(x[0]))
+print("Dataset size:", len(x))
+print("Feature vector length:", len(x[0]))
 
 # разделяем классы
 X_0 = [x[i] for i in range(len(y)) if y[i] == 0]
@@ -113,11 +117,11 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
 importances = model.feature_importances_
-kmers_list = all_kmers(3)
+kmers_list = all_kmers(4)
 
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 scores = cross_val_score(model, X_balanced, y_balanced, cv=cv)
-pairs = list(zip(kmers_list, importances))
+pairs = sorted(zip(kmers_list, importances), key=lambda x: x[1], reverse=True)
 pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
 
 print("Accuracy:", accuracy_score(y_test, predictions))
