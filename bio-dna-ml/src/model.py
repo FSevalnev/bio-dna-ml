@@ -117,7 +117,7 @@ model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 
 importances = model.feature_importances_
-kmers_list = all_kmers(4)
+kmers_list = all_kmers(4) + ["gc_content", "at_content"]
 
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 scores = cross_val_score(model, X_balanced, y_balanced, cv=cv)
